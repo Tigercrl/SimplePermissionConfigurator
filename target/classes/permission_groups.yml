@@ -1,0 +1,4 @@
+# Example:
+# my_permission_group:
+#   - "my.permission.one"
+#   - "my.permission.two"

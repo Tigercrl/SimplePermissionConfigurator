@@ -1,0 +1,8 @@
+name: SimplePermissionConfigurator
+version: '1.0'
+main: io.github.tigercrl.spc.SimplePermissionConfigurator
+api-version: 1.16
+authors: [ Tigercrl ]
+description: A lightweight to configure the plugin permissions.
+website: https://github.com/Tigercrl/SimplePermissionConfigurator
+prefix: "SPC"
