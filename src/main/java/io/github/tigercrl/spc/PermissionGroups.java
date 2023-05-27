@@ -3,16 +3,16 @@ package io.github.tigercrl.spc;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
 
 public class PermissionGroups {
     private final SimplePermissionConfigurator plugin;
-
-    private File permissionGroupsConfigFile;
-    private YamlConfiguration permissionGroupsConfig;
-
     public int count;
     public HashMap<String, List<String>> permissionGroups;
+    private File permissionGroupsConfigFile;
+    private YamlConfiguration permissionGroupsConfig;
 
     public PermissionGroups(SimplePermissionConfigurator plugin) {
         this.plugin = plugin;

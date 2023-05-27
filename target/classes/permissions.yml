@@ -1,11 +1,19 @@
-# Example:
+# Example1:
 # admin:
 #   players:
 #     - Notch
 #     - Him
 #   player-groups:
-#     - my_player_group
+#     - "my_player_group"
 #   permissions:
 #     - "my.permission.three"
 #   permission-groups:
 #     - "my_permission_group"
+
+# Example2:
+# admin:
+#   players:
+#     - Notch
+#     - Him
+#   permissions:
+#     - "my.permission"

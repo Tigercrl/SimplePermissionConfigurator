@@ -22,6 +22,8 @@ public final class SimplePermissionConfigurator extends JavaPlugin {
         permissionGroups.loadConfig();
         permissions.loadConfig();
         getLogger().info("Founded " + playerGroups.count + " player groups, " + permissionGroups.count + " permission groups and " + permissions.count + " permission settings.");
+        // Event Listeners
+        getServer().getPluginManager().registerEvents(new PlayerJoinEventListener(this), this);
         // Done
         getLogger().info("Plugin enabled.");
     }
