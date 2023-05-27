@@ -1,2 +1,2 @@
 # SimplePermissionConfigurator
-A lightweight to configure the plugin permissions.
+A lightweight plugin to configure the plugin permissions.
