@@ -1,40 +1,19 @@
 package io.github.tigercrl.spc;
 
-import org.bukkit.configuration.file.YamlConfiguration;
-
-import java.io.File;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
-public class PermissionGroups {
-    private final SimplePermissionConfigurator plugin;
-    public int count;
+public class PermissionGroups extends Config {
     public HashMap<String, List<String>> permissionGroups;
-    private File permissionGroupsConfigFile;
-    private YamlConfiguration permissionGroupsConfig;
 
     public PermissionGroups(SimplePermissionConfigurator plugin) {
-        this.plugin = plugin;
-    }
-
-    public void saveDefaultConfig() { // Save permission_groups.yml
-        if (!new File(plugin.getDataFolder(), "permission_groups.yml").exists())
-            plugin.saveResource("permission_groups.yml", false);
+        super(plugin, "permission_groups.yml");
     }
 
     public void loadConfig() { // Load/Reload permission_groups.yml
-        permissionGroupsConfigFile = new File(plugin.getDataFolder(), "permission_groups.yml");
-        permissionGroupsConfig = new YamlConfiguration();
-        try {
-            permissionGroupsConfig.load(permissionGroupsConfigFile);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        Set<String> keySet = permissionGroupsConfig.getKeys(false);
-        count = keySet.size();
+        super.loadConfig();
         for (String str : keySet) {
-            permissionGroups.put(str, permissionGroupsConfig.getStringList(str));
+            permissionGroups.put(str, config.getStringList(str));
         }
     }
 

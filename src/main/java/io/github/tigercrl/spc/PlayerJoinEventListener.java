@@ -18,13 +18,6 @@ public class PlayerJoinEventListener implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e) {
-        Player player = e.getPlayer();
-        if (plugin.permissions.permissionMap.containsKey(player.getName())){
-            for (String permission : plugin.permissions.permissionMap.get(player.getName())) {
-                PermissionAttachment attachment = player.addAttachment(plugin);
-                attachment.setPermission(permission, true);
-                plugin.getLogger().info("Granted " + player.getName() + " Permission " + permission);
-            }
-        }
+        plugin.grantPermissions(e.getPlayer());
     }
 }

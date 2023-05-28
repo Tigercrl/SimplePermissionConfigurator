@@ -6,3 +6,7 @@ authors: [ Tigercrl ]
 description: A lightweight to configure the plugin permissions.
 website: https://github.com/Tigercrl/SimplePermissionConfigurator
 prefix: "SPC"
+commands:
+  spc:
+    description: The main command of Simple Permissions Configurator.
+    usage: /spc reload
