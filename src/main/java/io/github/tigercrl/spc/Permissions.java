@@ -5,8 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 
 public class Permissions extends Config {
-    public HashMap<String, List<String>> permissionMap = new HashMap<>();
-    public List<String> permission4AllPlayers = new ArrayList<>();
+    public HashMap<String, List<String>> permissionMap;
+    public List<String> permission4AllPlayers;
 
     public Permissions(SimplePermissionConfigurator plugin) {
         super(plugin, "permissions.yml");
@@ -14,6 +14,8 @@ public class Permissions extends Config {
 
     public void loadConfig() { // Load/Reload permissions.yml
         super.loadConfig();
+        permissionMap = new HashMap<>();
+        permission4AllPlayers = new ArrayList<>();
         for (String str : keySet) {
             List<String> players = config.getStringList(str + ".players");
             List<String> playerGroups = config.getStringList(str + ".player-groups");
