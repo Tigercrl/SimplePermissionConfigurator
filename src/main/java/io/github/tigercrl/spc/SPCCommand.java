@@ -27,7 +27,7 @@ public class SPCCommand implements CommandExecutor {
                 plugin.permissionGroups.loadConfig();
                 plugin.permissions.loadConfig();
                 sender.sendMessage("[SPC] Founded " + plugin.playerGroups.count + " player groups, " + plugin.permissionGroups.count + " permission groups and " + plugin.permissions.count + " permission settings.");
-                plugin.getServer().getConsoleSender().sendMessage("[SPC] Permissions reloaded, all players need to rejoin to gain permissions.");
+                plugin.getServer().broadcastMessage("[SPC] Permissions reloaded, all players need to rejoin to gain permissions.");
                 return true;
             }
         }

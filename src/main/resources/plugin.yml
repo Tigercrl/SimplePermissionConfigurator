@@ -9,4 +9,4 @@ prefix: "SPC"
 commands:
   spc:
     description: The main command of Simple Permissions Configurator.
-    usage: /spc reload
+    usage: /spc <reload>
