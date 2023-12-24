@@ -17,3 +17,10 @@
 #     - Him
 #   permissions:
 #     - "my.permission"
+
+# Example3:
+# admin:
+#   permissions:
+#     - "my.permission"
+#   permission-groups:
+#     - "my_permission_group"

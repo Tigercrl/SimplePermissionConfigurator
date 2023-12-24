@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 public final class SimplePermissionConfigurator extends JavaPlugin {
+    public static SimplePermissionConfigurator instance;
     public PlayerGroups playerGroups;
     public Permissions permissions;
     public PermissionGroups permissionGroups;
@@ -17,10 +18,11 @@ public final class SimplePermissionConfigurator extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        // Config Class
-        playerGroups = new PlayerGroups(this);
-        permissionGroups = new PermissionGroups(this);
-        permissions = new Permissions(this);
+        instance = this;
+        // Configs
+        playerGroups = new PlayerGroups();
+        permissionGroups = new PermissionGroups();
+        permissions = new Permissions();
         // Save config
         playerGroups.saveDefaultConfig();
         permissionGroups.saveDefaultConfig();
@@ -30,10 +32,12 @@ public final class SimplePermissionConfigurator extends JavaPlugin {
         permissionGroups.loadConfig();
         permissions.loadConfig();
         getLogger().info("Founded " + playerGroups.count + " player groups, " + permissionGroups.count + " permission groups and " + permissions.count + " permission settings.");
-        // Event Listeners
-        getServer().getPluginManager().registerEvents(new PlayerJoinEventListener(this), this);
+        // Event listeners
+        getServer().getPluginManager().registerEvents(new PlayerJoinEventListener(), this);
         // Command executors
-        getCommand("spc").setExecutor(new SPCCommand(this));
+        getCommand("spc").setExecutor(new SPCCommand());
+        // Grant permissions
+        grantPermissions();
         // Done
         getLogger().info("Plugin enabled.");
     }
@@ -41,19 +45,19 @@ public final class SimplePermissionConfigurator extends JavaPlugin {
     @Override
     public void onDisable() {
         removePermissions();
+        instance = null;
         getLogger().info("Plugin disabled.");
     }
 
     public void grantPermissions(Player player) {
         List<String> permissionList = new ArrayList<>();
+        // Get permissions for the player and add it to the list
         if (permissions.permissionMap.containsKey(player.getName())) {
-            for (String permission : permissions.permissionMap.get(player.getName())) {
-                permissionList.add(permission);
-            }
+            permissionList.addAll(permissions.permissionMap.get(player.getName()));
         }
-        for (String permission : permissions.permission4AllPlayers) {
-            permissionList.add(permission);
-        }
+        // Get permissions for all players and add it to the list
+        permissionList.addAll(permissions.permission4AllPlayers);
+        // Grant permissions in the list to the player
         PermissionAttachment attachment = player.addAttachment(this);
         for (String permission : permissionList) {
             attachment.setPermission(permission, true);
@@ -61,10 +65,20 @@ public final class SimplePermissionConfigurator extends JavaPlugin {
         attachmentMap.put(player, attachment);
     }
 
+    public void grantPermissions() {
+        for (Player player : getServer().getOnlinePlayers()) {
+            grantPermissions(player);
+        }
+    }
+
+    public void removePermissions(Player p) {
+        p.removeAttachment(attachmentMap.get(p));
+        attachmentMap.remove(p);
+    }
+
     public void removePermissions() {
         for (Map.Entry<Player, PermissionAttachment> entry : attachmentMap.entrySet()) {
-            entry.getKey().removeAttachment(entry.getValue());
-            attachmentMap.remove(entry.getKey());
+            removePermissions(entry.getKey());
         }
     }
 }
